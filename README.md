@@ -3,7 +3,7 @@ HomePasser
 
 StreetPass from your home with your 3DS and Mac OSX.
 
-HomePasser will pull from an extended list of MAC addresses used by the online HomePass community, shuffle them all up, then set your Mac's AirPort so that your 3DS will grab StreetPass tags automatically. At 10 tags, the application will pause, allowing you to deal with the visitors you have. From there you can enter the number of additional tags you need, or just hit return for another 10 more.
+HomePasser will pull from an extended list of MAC addresses used by the online HomePass community, shuffle them all up, then set your Mac's AirPort so that your 3DS will grab StreetPass tags automatically. At 10 tags, the application will pause, allowing you to deal with the visitors you have. From there you can enter the number of additional tags you need, or just hit return for another 10.
 
 At any time when HomePasser is paused and you've had enough StreetPassin', just type 'q' and hit return.
 
