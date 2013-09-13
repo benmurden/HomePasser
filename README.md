@@ -11,11 +11,12 @@ At any time when HomePasser is paused and you've had enough StreetPassin', just 
 
 HomePasser will require that you have configured your Mac with Internet Connection Sharing at least once with the following settings.
 
+* Share from a connection _other than_ the AirPort. e.g. Ethernet, Bluetooth.
 * Share to other users on AirPort
 * Access point name (SSID) is "attwifi"
 * No security
 
-Once you have configured these settings, you can turn off Internet Connection Sharing and begin using HomePasser.
+Once you have configured these settings, try switching on your 3DS and turning on WiFi. If it thinks you're connected to a Nintendo Zone, then everything should be ready and you can deactivate Internet Sharing on your Mac.
 
 ## Usage
 
@@ -41,7 +42,7 @@ sudo python homepasser.py -i en0
 
 ### Options
 
-For a list of additional options, run homepasser with the '-h' argument.
+For a list of additional options, run HomePasser with the '-h' argument.
 
 ```
 python homepasser.py -h
