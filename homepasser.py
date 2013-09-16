@@ -199,7 +199,7 @@ def main(argv):
                 print 'Cycling WiFi...'
                 call(['ifconfig', options.interface, 'lladdr', a])
                 call(['launchctl', 'load', '-w', '/System/Library/LaunchDaemons/com.apple.InternetSharing.plist'])
-                print 'Spoofing ' + options.interface + ' to ' + a + ' for 60 seconds'
+                print 'HomePassing on ' + options.interface + ' with ' + a + ' for 60 seconds'
                 time.sleep(60)
 
                 print 'Switching off sharing and waiting 3 seconds'
@@ -210,7 +210,12 @@ def main(argv):
                         wait -= 1
                         
                         if wait == 0:
-                                print 'That\'s it, let me know if you need more StreetPassin\''
+                                print '''That\'s it, let me know if you need more StreetPassin\'
+
+        <Return> - 10 more tags.
+        <1-9>    - Between 1 and 9 more tags.
+        q        - Quit and return to command prompt.
+                                '''
                                 response = raw_input()
                                 if response.isdigit():
                                         wait = int(response)
