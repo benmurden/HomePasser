@@ -2,6 +2,8 @@ import sys, getopt, time
 from subprocess import call
 from random import shuffle
 from optparse import OptionParser
+import platform
+
 
 def main(argv):
 
@@ -185,6 +187,8 @@ def main(argv):
         '4E:53:50:4F:4F:9F',
         ]
 
+        network_sharing_plist = get_net_sharing_plist()
+
         if options.shuffle:
                 shuffle(addr)
 
@@ -192,23 +196,24 @@ def main(argv):
 
         print 'Initializing wireless interface'
         call(['/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport', '-z'])
-        call(['launchctl', 'unload', '-w', '/System/Library/LaunchDaemons/com.apple.InternetSharing.plist'])
+        call(['launchctl', 'unload', '-w', '/System/Library/LaunchDaemons/com.apple.%s.plist' % network_sharing_plist])
+
         time.sleep(3)
 
         for a in addr:
                 print 'Cycling WiFi...'
                 call(['ifconfig', options.interface, 'lladdr', a])
-                call(['launchctl', 'load', '-w', '/System/Library/LaunchDaemons/com.apple.InternetSharing.plist'])
+                call(['launchctl', 'load', '-w', '/System/Library/LaunchDaemons/com.apple.%s.plist' % network_sharing_plist])
                 print 'HomePassing on ' + options.interface + ' with ' + a + ' for 60 seconds'
                 time.sleep(60)
 
                 print 'Switching off sharing and waiting 3 seconds'
-                call(['launchctl', 'unload', '-w', '/System/Library/LaunchDaemons/com.apple.InternetSharing.plist'])
+                call(['launchctl', 'unload', '-w', '/System/Library/LaunchDaemons/com.apple.%s.plist' % network_sharing_plist])
                 time.sleep(3)
-        
+
                 if options.pause:
                         wait -= 1
-                        
+
                         if wait == 0:
                                 print '''That\'s it, let me know if you need more StreetPassin\'
 
@@ -223,14 +228,27 @@ def main(argv):
                                         cleanup()
                                 else:
                                         wait = 10
-                                        
+
         print 'The list has been exhausted. Consider this HomePass session complete.'
         cleanup()
-        
+
+
 def cleanup():
-        call(['launchctl', 'unload', '-w', '/System/Library/LaunchDaemons/com.apple.InternetSharing.plist'])
+        call(['launchctl', 'unload', '-w', '/System/Library/LaunchDaemons/com.apple.%s.plist' % get_net_sharing_plist()])
         print 'Finished'
         sys.exit()
+
+
+def get_net_sharing_plist():
+        version_list = platform.mac_ver()[0].split('.')
+        major_ver = int(version_list[0])
+        release_ver = int(version_list[1])
+
+        if major_ver >= 10 and release_ver >= 10:
+                return 'NetworkSharing'
+        else:
+                return 'InternetSharing'
+
 
 if __name__ == "__main__":
         main(sys.argv[1:])
