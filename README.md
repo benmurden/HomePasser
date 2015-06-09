@@ -48,3 +48,6 @@ For a list of additional options, run HomePasser with the '-h' argument.
 python homepasser.py -h
 ```
 
+### Yosemite
+
+There is a `yosemite` branch that has changes which should allow the script to work on OSX 10.10 Yosemite, but without a Mac upgraded to that version, I'm unable to personally test it. Let me know if it works for you!
